@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=MovingComponent
+comment1.params=
+comment1.target=MovingComponent()
+comment1.text=\r\n\ Default\ constructor\ for\ objects\ of\ class\ MovingComponent\r\n
+comment10.params=
+comment10.target=double\ calculateDirectionAngle()
+comment10.text=\r\n\ Calculates\ the\ angle\ of\ direction\ of\ movement\ in\ degrees.\r\n\ \r\n\ @return\ The\ angle\ of\ direction\ in\ degrees.\r\n
+comment2.params=centerX\ centerY\ speedX\ speedY\ timeDelay\ name
+comment2.target=MovingComponent(int,\ int,\ float,\ float,\ int,\ java.lang.String)
+comment3.params=
+comment3.target=float\ getSpeedX()
+comment4.params=
+comment4.target=float\ getSpeedY()
+comment5.params=
+comment5.target=int\ getTimeDelay()
+comment6.params=speedX
+comment6.target=void\ setSpeedX(float)
+comment7.params=speedY
+comment7.target=void\ setSpeedY(float)
+comment8.params=timeDelay
+comment8.target=void\ setTimeDelay(int)
+comment9.params=
+comment9.target=double\ calculateVelocityMagnitude()
+comment9.text=\r\n\ Calculates\ the\ magnitude\ of\ the\ velocity\ vector.\r\n\ \r\n\ @return\ The\ magnitude\ of\ the\ velocity.\r\n
+numComments=11

@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Circle
+comment1.params=radius
+comment1.target=Circle(double)
+comment2.params=
+comment2.target=double\ getRadius()
+comment3.params=radius
+comment3.target=void\ setRadius(double)
+comment4.params=
+comment4.target=double\ calculateArea()
+comment5.params=
+comment5.target=double\ calculatePerimeter()
+comment6.params=center_x\ center_y
+comment6.target=java.util.List\ determineBoundingBox(int,\ int)
+numComments=7

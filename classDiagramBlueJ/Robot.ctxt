@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Robot
+comment1.params=center_x\ center_y\ speedX\ speedY\ timeDelay\ name
+comment1.target=Robot(int,\ int,\ float,\ float,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Robot.\ Initializes\ all\ variables\ from\ both\ Component\ and\ MovingComponent.\r\n\r\n\ @param\ center_x\ Initial\ x-coordinate\ of\ the\ robot's\ center.\r\n\ @param\ center_y\ Initial\ y-coordinate\ of\ the\ robot's\ center.\r\n\ @param\ speedX\ Initial\ x-speed\ of\ the\ robot.\r\n\ @param\ speedY\ Initial\ y-speed\ of\ the\ robot.\r\n\ @param\ timeDelay\ Initial\ time\ delay\ for\ the\ robot's\ movement.\r\n\ @param\ name\ Initial\ name\ of\ the\ robot.\r\n
+comment2.params=
+comment2.target=Circle\ getCircle()
+comment3.params=
+comment3.target=double\ getRobotRadius()
+numComments=4

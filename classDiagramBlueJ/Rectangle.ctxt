@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Rectangle
+comment1.params=length\ width
+comment1.target=Rectangle(double,\ double)
+comment2.params=
+comment2.target=double\ getLength()
+comment3.params=length
+comment3.target=void\ setLength(double)
+comment4.params=
+comment4.target=double\ getWidth()
+comment5.params=width
+comment5.target=void\ setWidth(double)
+comment6.params=
+comment6.target=double\ calculateArea()
+comment7.params=
+comment7.target=double\ calculatePerimeter()
+comment8.params=center_x\ center_y
+comment8.target=java.util.List\ determineBoundingBox(int,\ int)
+numComments=9

@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Factory
+comment0.text=\r\n\ The\ Factory\ class\ represents\ a\ manufacturing\ facility\ with\ the\ ability\ to\ store\r\n\ and\ manage\ a\ collection\ of\ components.\ It\ allows\ adding\ and\ removing\ components\r\n\ to\ the\ facility,\ and\ provides\ a\ way\ to\ access\ the\ current\ list\ of\ components.\r\n\ This\ class\ is\ designed\ as\ part\ of\ a\ larger\ system\ to\ simulate\ a\ factory's\ operations.\r\n
+comment1.params=
+comment1.target=Factory()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Factory\r\n
+comment2.params=component
+comment2.target=void\ addComponent(Component)
+comment2.text=\r\n\ Adds\ a\ Component\ to\ the\ factoryComponents\ list.\r\n\r\n\ @param\ component\ The\ Component\ to\ be\ added.\r\n
+comment3.params=component
+comment3.target=boolean\ removeComponent(Component)
+comment3.text=\r\n\ Removes\ a\ Component\ from\ the\ factoryComponents\ list.\r\n\r\n\ @param\ component\ The\ Component\ to\ be\ removed.\r\n\ @return\ true\ if\ this\ list\ contained\ the\ specified\ element.\r\n
+comment4.params=
+comment4.target=java.util.List\ getComponents()
+comment4.text=\r\n\ Gets\ the\ list\ of\ Components\ in\ the\ Factory.\r\n\r\n\ @return\ An\ unmodifiable\ list\ of\ factoryComponents.\r\n
+numComments=5
