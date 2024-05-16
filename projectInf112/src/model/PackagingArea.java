@@ -1,5 +1,7 @@
 package model;
 
+
+@SuppressWarnings("serial")
 public class PackagingArea extends Area {
 
 	public PackagingArea() {

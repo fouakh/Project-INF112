@@ -1,77 +1,30 @@
 package model;
 
+import java.io.Serializable;
 import fr.tp.inf112.projects.canvas.model.*;
 
-public class Puck extends MovingComponents {
-    // Additional variables specific to Robot can be declared here
-    private static final int ROBOT_RADIUS = 2;
-    private boolean onRobot;
-    
-    private static final Color DEFAULT_COLOR = new Color() {
-        @Override
-        public int getRedComponent() {
-            return 0;
-        }
+public class Puck extends MovingComponents implements Serializable {
 
-        @Override
-        public int getGreenComponent() {
-            return 0;
-        }
+	private static final long serialVersionUID = 1L;
+	private static final int ROBOT_RADIUS = 2;
+    @SuppressWarnings("unused")
+	private boolean onRobot;
 
-        @Override
-        public int getBlueComponent() {
-            return 0;
-        }
-    };
+    private static final Color DEFAULT_COLOR = new DefaultColor();
 
-    private static final Stroke DEFAULT_STROKE = new Stroke() {
-        @Override
-        public Color getColor() {
-            return DEFAULT_COLOR;
-        }
-
-        @Override
-        public float getThickness() {
-            return 2.0f; 
-        }
-
-        @Override
-        public float[] getDashPattern() {
-            return null; 
-        }
-    };    
+    private static final Stroke DEFAULT_STROKE = new DefaultStroke();    
 
     public Puck(int xCoordinate, int yCoordinate, String name, int timeDelay) {
-        super(xCoordinate, yCoordinate, name, getDefaultStyle(), getDefaultShape(), timeDelay); // Pass null for Style and Shape
+        super(xCoordinate, yCoordinate, name, getDefaultStyle(), getDefaultShape(), timeDelay);
         this.onRobot = false;
     }
     
     private static Style getDefaultStyle() {
-        return new Style() {
-            @Override
-            public Color getBackgroundColor() {
-                return DEFAULT_COLOR;
-            }
-
-            @Override
-            public Stroke getStroke() {
-                return DEFAULT_STROKE;
-            }
-        };
+        return new DefaultStyle();
     }
 
     private static OvalShape getDefaultShape() {
-        return new OvalShape() {
-            @Override
-            public int getWidth() {
-                return ROBOT_RADIUS;
-            }
-
-            @Override
-            public int getHeight() {
-                return ROBOT_RADIUS;
-            }
-        };
+        return new DefaultOvalShape();
     }
     
     public void setPuckOn(boolean onRobot) {
@@ -89,4 +42,69 @@ public class Puck extends MovingComponents {
         return getDefaultShape();
     }
 
+    private static class DefaultColor implements Color, Serializable {
+        
+		private static final long serialVersionUID = 1L;
+		@Override
+        public int getRedComponent() {
+            return 0;
+        }
+
+        @Override
+        public int getGreenComponent() {
+            return 0;
+        }
+
+        @Override
+        public int getBlueComponent() {
+            return 0;
+        }
+    }
+
+    private static class DefaultStroke implements Stroke, Serializable {
+        
+		private static final long serialVersionUID = 1L;
+		@Override
+        public Color getColor() {
+            return DEFAULT_COLOR;
+        }
+
+        @Override
+        public float getThickness() {
+            return 2.0f; 
+        }
+
+        @Override
+        public float[] getDashPattern() {
+            return null; 
+        }
+    }
+
+    private static class DefaultStyle implements Style, Serializable {
+
+    	private static final long serialVersionUID = 1L;
+    	@Override
+        public Color getBackgroundColor() {
+            return DEFAULT_COLOR;
+        }
+
+        @Override
+        public Stroke getStroke() {
+            return DEFAULT_STROKE;
+        }
+    }
+
+	private static class DefaultOvalShape implements OvalShape, Serializable {
+
+		private static final long serialVersionUID = 1L;
+		@Override
+        public int getWidth() {
+            return ROBOT_RADIUS;
+        }
+
+        @Override
+        public int getHeight() {
+            return ROBOT_RADIUS;
+        }
+    }
 }

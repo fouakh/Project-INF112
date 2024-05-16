@@ -14,8 +14,7 @@ public class Application {
     private Booth booth1, booth2;
     private ChargingArea chargingArea2;
     private Door door1, door2, door3, door4;
-    private Robot robot1, robot2, robot3;
-    private Puck puck1;
+    private Robot robot1;
     
     private List<Components> componentsToVisitByRobot1 = new ArrayList<>();
 
@@ -48,10 +47,6 @@ public class Application {
     	componentsToVisitByRobot1.add(this.door1);
         robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1);
         
-        //robot2 = new Robot(230, 80, "Robot 2", 1);
-        //robot3 = new Robot(200, 150, "Robot 3", 1);
-        //puck1 = new Puck(40, 20, "Puck 1", 1);
-        
         factory.addComponent(room1);
     	factory.addComponent(room2); 
     	factory.addComponent(room3); 
@@ -72,9 +67,6 @@ public class Application {
     	factory.addComponent(door4);
     	
     	factory.addComponent(robot1);
-    	//factory.addComponent(robot2);
-    	//factory.addComponent(robot3);
-    	//factory.addComponent(puck1);
     	
     }
 

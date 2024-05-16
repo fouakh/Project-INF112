@@ -1,13 +1,13 @@
 package test;
 
 import fr.tp.inf112.projects.canvas.view.CanvasViewer;
-import fr.tp.inf112.projects.canvas.controller.Observer;
 
 import implement.*;
 import controller.*;
 
 public class SimulatorApplication {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
         
 		Application app = new Application();

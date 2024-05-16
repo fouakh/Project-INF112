@@ -1,9 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 import fr.tp.inf112.projects.canvas.model.*;
 
-public abstract class MovingComponents extends Components {
+public abstract class MovingComponents extends Components implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private float speedX;
     private float speedY;
     private final int timeDelay;

@@ -3,23 +3,26 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.io.Serializable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 import fr.tp.inf112.projects.canvas.model.*;
 import fr.tp.inf112.projects.canvas.controller.*;
-/**
- * 
- */
-public class Factory implements Canvas, Observable {
+
+@SuppressWarnings("serial")
+public class Factory implements Canvas, Observable, Serializable {
 
 	private static final int HEIGHT = 200;
 	private static final int WIDTH = 400;
 	private static final String NAME = "Factory";
 	private static final Color DEFAULT_COLOR = null;
 	private static final Stroke DEFAULT_STROKE = null;
-	
+	private String id;
 	
 	private List<Components> factoryComponents;
-	private List<Observer> factoryObservers;
+	//private transient List<Components> factoryComponents;
+	private transient List<Observer> factoryObservers;
 	private boolean simulationStarted;
 
     public Factory() {
@@ -112,23 +115,23 @@ public class Factory implements Canvas, Observable {
     }
 
     public void notifyObservers() {
-    	//System.out.println(this.factoryObservers.size());
         for (Observer observer : this.factoryObservers) {
             observer.modelChanged();
         }
     }
 
+    @Override
+    public String getId() {
+        return id;
+    }
 
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
-
-	@Override
-	public void setId(String id) {
-		// TODO Auto-generated method stub
-	}
-
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
+        ois.defaultReadObject();
+        this.factoryObservers = new ArrayList<>(); 
+    }
 }

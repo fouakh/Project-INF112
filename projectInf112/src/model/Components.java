@@ -3,28 +3,26 @@
  */
 package model;
 
+import java.io.Serializable;
 import fr.tp.inf112.projects.canvas.model.*;
 
 /**
  * 
  */
-public abstract class Components implements Figure{
+public abstract class Components implements Figure, Serializable  {
 
+	private static final long serialVersionUID = 1L;
 	private int xCoordinate;
 	private int yCoordinate;
 	private String name;
-	private int id;
 	private Style style;
 	private Shape shape;
-	private Factory factoryModel;
-	
-	private static int lastId = 0;
+	private transient Factory factoryModel;
 	
 	public Components() {
 		this.xCoordinate = 0;
 		this.yCoordinate = 0;
 		this.name = "none";
-		this.id = ++lastId;
 	}
 	
 	public Components(int xCoordinate, int yCoordinate, String name, Style style, Shape shape) {
@@ -33,7 +31,6 @@ public abstract class Components implements Figure{
 		this.name = name;
 		this.style = style;
 		this.shape = shape;
-		this.id = ++lastId;
 	}
 	
 	public void setxCoordinate(int xCoordinate) {
@@ -57,10 +54,6 @@ public abstract class Components implements Figure{
     @Override
     public String getName() {
         return this.name;
-    }
-
-    public int getId() {
-        return this.id;
     }
     
     @Override

@@ -1,88 +1,39 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
-
 import fr.tp.inf112.projects.canvas.model.*;
 
-public class Robot extends MovingComponents {
-    
-	private List<Components> componentsToVisit; 
+public class Robot extends MovingComponents implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+    private List<Components> componentsToVisit;
     private int currentComponentIndex;
     private static final int ROBOT_RADIUS = 10;
-    private boolean puckOn;
-    
-    private static final Color DEFAULT_COLOR = new Color() {
-        @Override
-        public int getRedComponent() {
-            return 0;
-        }
+    @SuppressWarnings("unused")
+	private boolean puckOn;
 
-        @Override
-        public int getGreenComponent() {
-            return 255;
-        }
+    private static final Color DEFAULT_COLOR = new DefaultColor();
 
-        @Override
-        public int getBlueComponent() {
-            return 20;
-        }
-    };
+    private static final Stroke DEFAULT_STROKE = new DefaultStroke();    
 
-    private static final Stroke DEFAULT_STROKE = new Stroke() {
-        @Override
-        public Color getColor() {
-            return DEFAULT_COLOR;
-        }
-
-        @Override
-        public float getThickness() {
-            return 2.0f; 
-        }
-
-        @Override
-        public float[] getDashPattern() {
-            return null; 
-        }
-    };    
-
-    public Robot(int xCoordinate, int yCoordinate, String name, int timeDelay, List<Components> componentsToVisit) {  
-    	super(xCoordinate, yCoordinate, name, getDefaultStyle(), getDefaultShape(), timeDelay);
+    public Robot(int xCoordinate, int yCoordinate, String name, int timeDelay, List<Components> componentsToVisit) {
+        super(xCoordinate, yCoordinate, name, getDefaultStyle(), getDefaultShape(), timeDelay);
         this.puckOn = false;
         this.currentComponentIndex = 0;
         this.componentsToVisit = componentsToVisit;
     }
     
     private static Style getDefaultStyle() {
-        return new Style() {
-            @Override
-            public Color getBackgroundColor() {
-                return DEFAULT_COLOR;
-            }
-
-            @Override
-            public Stroke getStroke() {
-                return DEFAULT_STROKE;
-            }
-        };
+        return new DefaultStyle();
     }
 
     private static OvalShape getDefaultShape() {
-        return new OvalShape() {
-            @Override
-            public int getWidth() {
-                return ROBOT_RADIUS;
-            }
-
-            @Override
-            public int getHeight() {
-                return ROBOT_RADIUS;
-            }
-        };
+        return new DefaultOvalShape();
     }
     
     public void setComponentsToVisit(List<Components> componentsToVisit) {
-    	this.componentsToVisit = componentsToVisit;
+        this.componentsToVisit = componentsToVisit;
     }
     
     public void setPuckOn(boolean puckOn) {
@@ -99,16 +50,16 @@ public class Robot extends MovingComponents {
     public OvalShape getShape() {
         return getDefaultShape();
     }
-    
+
     @Override
     public void behave() {
-    	if (this.componentsToVisit.isEmpty()) {
+        if (componentsToVisit.isEmpty()) {
             return;
         }
-        Components currentComponent = this.componentsToVisit.get(this.currentComponentIndex);
+        Components currentComponent = componentsToVisit.get(currentComponentIndex);
         if (this.getxCoordinate() == currentComponent.getxCoordinate() && this.getyCoordinate() == currentComponent.getyCoordinate()) {
-            this.currentComponentIndex = (this.currentComponentIndex + 1) % this.componentsToVisit.size();
-            currentComponent = this.componentsToVisit.get(this.currentComponentIndex);
+            currentComponentIndex = (currentComponentIndex + 1) % componentsToVisit.size();
+            currentComponent = componentsToVisit.get(currentComponentIndex);
         }
         move(currentComponent.getxCoordinate(), currentComponent.getyCoordinate());
     }
@@ -118,7 +69,6 @@ public class Robot extends MovingComponents {
         float deltaY = (float) targetY - this.getyCoordinate();
         
         float length = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        // Add charging ... %
         float newDeltaX = deltaX / length * 5 * this.getTimeDelay();
         float newDeltaY = deltaY / length * 5 * this.getTimeDelay();
         
@@ -129,9 +79,69 @@ public class Robot extends MovingComponents {
         this.setyCoordinate((int) newY);
     }
 
-    /*private void move(int targetX, int targetY) {
-        this.setxCoordinate(targetX);
-        this.setyCoordinate(targetY);
-    }*/
+    private static class DefaultColor implements Color, Serializable {
+    	
+    	private static final long serialVersionUID = 1L;
+    	@Override
+        public int getRedComponent() {
+            return 0;
+        }
 
+        @Override
+        public int getGreenComponent() {
+            return 255;
+        }
+
+        @Override
+        public int getBlueComponent() {
+            return 20;
+        }
+    }
+
+    private static class DefaultStroke implements Stroke, Serializable {
+    	
+    	private static final long serialVersionUID = 1L;
+    	@Override
+        public Color getColor() {
+            return DEFAULT_COLOR;
+        }
+
+        @Override
+        public float getThickness() {
+            return 2.0f;
+        }
+
+        @Override
+        public float[] getDashPattern() {
+            return null;
+        }
+    }
+
+    private static class DefaultStyle implements Style, Serializable {
+    	
+    	private static final long serialVersionUID = 1L;
+    	@Override
+        public Color getBackgroundColor() {
+            return DEFAULT_COLOR;
+        }
+
+        @Override
+        public Stroke getStroke() {
+            return DEFAULT_STROKE;
+        }
+    }
+
+    private static class DefaultOvalShape implements OvalShape, Serializable {
+    	
+    	private static final long serialVersionUID = 1L;
+    	@Override
+        public int getWidth() {
+            return ROBOT_RADIUS;
+        }
+
+        @Override
+        public int getHeight() {
+            return ROBOT_RADIUS;
+        }
+    }
 }
