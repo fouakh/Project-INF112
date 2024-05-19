@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import fr.tp.inf112.projects.canvas.model.*;
 
-public class Door extends StaticComponents implements Serializable {
+public class Door extends StaticComponent implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static final int HEIGHT = 30;

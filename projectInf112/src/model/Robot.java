@@ -1,15 +1,24 @@
 package model;
 
+import pathfinder.*;
+
 import java.io.Serializable;
 import java.util.List;
 import fr.tp.inf112.projects.canvas.model.*;
 
-public class Robot extends MovingComponents implements Serializable {
+public class Robot extends MovingComponent implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-    private List<Components> componentsToVisit;
+	
+    private List<Component> componentsToVisit;
     private int currentComponentIndex;
+    
+    private IFactoryPathFinder factoryPathFinder;
+    private List<Position> currentPath;
+    private int currentPathIndex;
+    
     private static final int ROBOT_RADIUS = 10;
+ 
     @SuppressWarnings("unused")
 	private boolean puckOn;
 
@@ -17,11 +26,19 @@ public class Robot extends MovingComponents implements Serializable {
 
     private static final Stroke DEFAULT_STROKE = new DefaultStroke();    
 
-    public Robot(int xCoordinate, int yCoordinate, String name, int timeDelay, List<Components> componentsToVisit) {
+    public Robot(int xCoordinate, 
+    		int yCoordinate, 
+    		String name, 
+    		int timeDelay, 
+    		List<Component> componentsToVisit,
+    		Room operatingRoom) {
+    	
         super(xCoordinate, yCoordinate, name, getDefaultStyle(), getDefaultShape(), timeDelay);
         this.puckOn = false;
         this.currentComponentIndex = 0;
+        this.currentPathIndex = 0;
         this.componentsToVisit = componentsToVisit;
+        this.factoryPathFinder = new FactoryPathFinder(operatingRoom);
     }
     
     private static Style getDefaultStyle() {
@@ -32,13 +49,17 @@ public class Robot extends MovingComponents implements Serializable {
         return new DefaultOvalShape();
     }
     
-    public void setComponentsToVisit(List<Components> componentsToVisit) {
+    public void setComponentsToVisit(List<Component> componentsToVisit) {
         this.componentsToVisit = componentsToVisit;
     }
     
     public void setPuckOn(boolean puckOn) {
         this.puckOn = puckOn;
         setFactoryNotify();
+    }
+    
+    public int getRadius() {
+    	return ROBOT_RADIUS;
     }
  
     @Override
@@ -51,32 +72,37 @@ public class Robot extends MovingComponents implements Serializable {
         return getDefaultShape();
     }
 
+    private void calculatePath() {
+        if (currentComponentIndex < componentsToVisit.size()) {
+            Component nextComponent = componentsToVisit.get(currentComponentIndex);
+            currentPath = factoryPathFinder.findPath(this.getPosition(), nextComponent.getPosition());
+            currentComponentIndex = (currentComponentIndex + 1) % componentsToVisit.size();
+            currentPathIndex = 0;
+        } else {
+            currentPath = null;
+        }
+    }
+
     @Override
     public void behave() {
         if (componentsToVisit.isEmpty()) {
             return;
         }
-        Components currentComponent = componentsToVisit.get(currentComponentIndex);
-        if (this.getxCoordinate() == currentComponent.getxCoordinate() && this.getyCoordinate() == currentComponent.getyCoordinate()) {
-            currentComponentIndex = (currentComponentIndex + 1) % componentsToVisit.size();
-            currentComponent = componentsToVisit.get(currentComponentIndex);
-        }
-        move(currentComponent.getxCoordinate(), currentComponent.getyCoordinate());
-    }
 
-    private void move(int targetX, int targetY) {
-        float deltaX = (float) targetX - this.getxCoordinate();
-        float deltaY = (float) targetY - this.getyCoordinate();
-        
-        float length = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        float newDeltaX = deltaX / length * 5 * this.getTimeDelay();
-        float newDeltaY = deltaY / length * 5 * this.getTimeDelay();
-        
-        float newX = this.getxCoordinate() + (Math.abs(newDeltaX) < Math.abs(deltaX) ? newDeltaX : deltaX);
-        float newY = this.getyCoordinate() + (Math.abs(newDeltaY) < Math.abs(deltaY) ? newDeltaY : deltaY);
-        
-        this.setxCoordinate((int) newX);
-        this.setyCoordinate((int) newY);
+        if (currentPath == null || currentPathIndex >= currentPath.size()) {
+            calculatePath();
+        }
+
+        if (currentPath != null && currentPathIndex < currentPath.size()) {
+            Position nextPosition = currentPath.get(currentPathIndex);
+            this.setxCoordinate(nextPosition.getxCoordinate());
+            this.setyCoordinate(nextPosition.getyCoordinate());
+            currentPathIndex++;
+        }
+
+        if (currentPath != null && currentPathIndex >= currentPath.size()) {
+            currentComponentIndex = (currentComponentIndex + 1) % componentsToVisit.size();
+        }
     }
 
     private static class DefaultColor implements Color, Serializable {

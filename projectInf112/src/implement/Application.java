@@ -1,12 +1,14 @@
 package implement;
 
+import model.*;
+
 import java.util.List;
 import java.util.ArrayList;
-import model.*;
 
 public class Application {
 
 	private Factory factory;
+	
     private Room room1, room2, room3, room4;
     private PackagingArea packagingArea1;
     private ChargingArea chargingArea1;
@@ -16,11 +18,12 @@ public class Application {
     private Door door1, door2, door3, door4;
     private Robot robot1;
     
-    private List<Components> componentsToVisitByRobot1 = new ArrayList<>();
+    private List<Component> componentsToVisitByRobot1;
 
     public Application() {
     	
         factory = new Factory();
+        componentsToVisitByRobot1 = new ArrayList<>();
         
         room1 = new Room(10, 10, "Packaging Room", 170, 90);
         room2 = new Room(180, 10, "Sorting Room", 210, 90);
@@ -43,9 +46,10 @@ public class Application {
         
         
         componentsToVisitByRobot1.add(this.packagingArea1);
-    	componentsToVisitByRobot1.add(this.sortingArea1);
-    	componentsToVisitByRobot1.add(this.door1);
-        robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1);
+    	//componentsToVisitByRobot1.add(this.sortingArea1);
+    	//componentsToVisitByRobot1.add(this.door1);
+        componentsToVisitByRobot1.add(this.chargingArea1);
+        robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1, room1);
         
         factory.addComponent(room1);
     	factory.addComponent(room2); 
@@ -69,14 +73,9 @@ public class Application {
     	factory.addComponent(robot1);
     	
     }
-
 	
 	public Factory getFactory() {
 		return this.factory;
 	}
 	
-	public Robot getRobot1() {
-		return this.robot1;
-	}
-
 }

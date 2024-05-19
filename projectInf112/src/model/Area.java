@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import fr.tp.inf112.projects.canvas.model.*;
 
-public class Area extends StaticComponents implements Serializable {
+public class Area extends StaticComponent implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int height;

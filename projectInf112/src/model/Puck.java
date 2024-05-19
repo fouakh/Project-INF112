@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import fr.tp.inf112.projects.canvas.model.*;
 
-public class Puck extends MovingComponents implements Serializable {
+public class Puck extends MovingComponent implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static final int ROBOT_RADIUS = 2;

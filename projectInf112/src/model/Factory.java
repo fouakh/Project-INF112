@@ -20,7 +20,7 @@ public class Factory implements Canvas, Observable, Serializable {
 	private static final Stroke DEFAULT_STROKE = null;
 	private String id;
 	
-	private List<Components> factoryComponents;
+	private List<Component> factoryComponents;
 	//private transient List<Components> factoryComponents;
 	private transient List<Observer> factoryObservers;
 	private boolean simulationStarted;
@@ -32,22 +32,22 @@ public class Factory implements Canvas, Observable, Serializable {
     }
 
     
-    public void addComponent(Components component) {
+    public void addComponent(Component component) {
         factoryComponents.add(component);
     }
 
-    public boolean removeComponent(Components component) {
+    public boolean removeComponent(Component component) {
         return factoryComponents.remove(component);
     }
     
-    public List<Components> getComponents() {
+    public List<Component> getComponents() {
         return java.util.Collections.unmodifiableList(factoryComponents);
     }
     
     @Override
     public Collection<Figure> getFigures() {
         List<Figure> figures = new ArrayList<>();
-        for (Components component : factoryComponents) {
+        for (Component component : factoryComponents) {
             figures.add(component);
         }
         return figures;
@@ -84,7 +84,7 @@ public class Factory implements Canvas, Observable, Serializable {
     }
     
     public void behave() {
-        for (Components component : factoryComponents) {
+        for (Component component : factoryComponents) {
             component.behave();
         }
         notifyObservers();

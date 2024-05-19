@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import fr.tp.inf112.projects.canvas.model.*;
 
-public class Room extends StaticComponents implements Serializable {
+public class Room extends StaticComponent implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int height;
@@ -38,6 +38,14 @@ public class Room extends StaticComponents implements Serializable {
         return getDefaultShape(this.height, this.width);
     }
 
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+    
     private static class DefaultStroke implements Stroke, Serializable {
         
 		private static final long serialVersionUID = 1L;
