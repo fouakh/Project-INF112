@@ -1,76 +1,64 @@
 package pathfinder;
 
 import org.jgrapht.Graph;
-import org.jgrapht.graph.DefaultDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultDirectedWeightedGraph;
+import org.jgrapht.graph.DefaultWeightedEdge;
 
-import model.Door;
-import model.Room;
+import model.Factory;
 
 public class FactoryToGraph {
 	
-	private Graph<Position, DefaultEdge> graph;
+	private Graph<Position, DefaultWeightedEdge> graph;
 	
-	public FactoryToGraph(Room room) {
-		//robot = new Robot(0, 0, null, 0, null, null);
-		graph = new DefaultDirectedGraph<>(DefaultEdge.class);
-		createRoomGraph(room);
+	public FactoryToGraph(Factory factory) {
+		this.graph = new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+		createGraph(factory);
 	}
-
-
-	public void mergeGraph(DefaultDirectedGraph<Position, DefaultEdge> graphToMerge) {
-        for (Position vertex : graphToMerge.vertexSet()) {
-            if (!graph.containsVertex(vertex)) {
-            	this.graph.addVertex(vertex);
-            }
-        }
-
-        for (DefaultEdge edge : graphToMerge.edgeSet()) {
-            Position source = graphToMerge.getEdgeSource(edge);
-            Position target = graphToMerge.getEdgeTarget(edge);
-            if (!graph.containsEdge(source, target)) {
-            	this.graph.addEdge(source, target);
-            }
-        }
-    }
 	
-	public void createRoomGraph(Room room) {
-		/*int xTopLeft = room.getxCoordinate() + (this.robot.getRadius() / 2);
-		int yTopLeft = room.getyCoordinate() + (this.robot.getRadius() / 2);
-		int xBottomRight = xTopLeft + room.getWidth() - (this.robot.getRadius() / 2);
-		int yBottomRight = yTopLeft + room.getHeight() - (this.robot.getRadius() / 2);*/
+	public void createGraph(Factory factory) {
+		int xBottomRight = factory.getWidth();
+		int yBottomRight = factory.getHeight();
 		
-		int xTopLeft = room.getxCoordinate();
-		int yTopLeft = room.getyCoordinate();
-		int xBottomRight = xTopLeft + room.getHeight();
-		int yBottomRight = yTopLeft + room.getWidth();
-		
-		for (int x = xTopLeft; x <= xBottomRight; x++) {
-            for (int y = yTopLeft; y <= yBottomRight; y++) {
+		for (int x = 0; x <= xBottomRight; x++) {
+            for (int y = 0; y <= yBottomRight; y++) {
                 Position pos = new Position(x, y);
                 this.graph.addVertex(pos);
 
-                if (x > xTopLeft) {
+                if (x > 0) {
                     Position leftNeighbor = new Position(x - 1, y);
-                    this.graph.addEdge(pos, leftNeighbor);
-                    this.graph.addEdge(leftNeighbor, pos);
+                    DefaultWeightedEdge edge1 = this.graph.addEdge(pos, leftNeighbor);
+                    DefaultWeightedEdge edge2 = this.graph.addEdge(leftNeighbor, pos);
+                    this.graph.setEdgeWeight(edge1, 1);
+                    this.graph.setEdgeWeight(edge2, 1);
                 }
 
-                if (y > yTopLeft) {
+                if (y > 0) {
                     Position topNeighbor = new Position(x, y - 1);
-                    this.graph.addEdge(pos, topNeighbor);
-                    this.graph.addEdge(topNeighbor, pos);
+                    DefaultWeightedEdge edge1 = this.graph.addEdge(pos, topNeighbor);
+                    DefaultWeightedEdge edge2 = this.graph.addEdge(topNeighbor, pos);
+                    this.graph.setEdgeWeight(edge1, 1);
+                    this.graph.setEdgeWeight(edge2, 1);
                 }
+                
+                if (y > 0 && x > 0) {
+                    Position topLeftNeighbor = new Position(x - 1, y - 1);
+                    Position topNeighbor = new Position(x, y - 1);
+                    Position leftNeighbor = new Position(x - 1, y);
+                    
+                    DefaultWeightedEdge edge1 = this.graph.addEdge(pos, topLeftNeighbor);
+                    DefaultWeightedEdge edge2 = this.graph.addEdge(topLeftNeighbor, pos);
+                    this.graph.setEdgeWeight(edge1, Math.sqrt(2));
+                    this.graph.setEdgeWeight(edge2, Math.sqrt(2));
+                    
+                    DefaultWeightedEdge edge3 = this.graph.addEdge(leftNeighbor, topNeighbor);
+                    DefaultWeightedEdge edge4 = this.graph.addEdge(topNeighbor, leftNeighbor);
+                    this.graph.setEdgeWeight(edge3, Math.sqrt(2));
+                    this.graph.setEdgeWeight(edge4, Math.sqrt(2));
+                    
+                }   
+                
             }
         }		
-	}
-	
-	public void openDoor(DefaultDirectedGraph<Position, DefaultEdge> graph, Door door) {
-		// TODO Auto-generated method stub
-	}
-	
-	public void closeDoor(DefaultDirectedGraph<Position, DefaultEdge> graph, Door door) {
-		// TODO Auto-generated method stub
 	}
 
 	public Object getGraph() {

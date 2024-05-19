@@ -1,6 +1,7 @@
 package implement;
 
 import model.*;
+import pathfinder.FactoryToGraph;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -19,25 +20,27 @@ public class Application {
     private Robot robot1;
     
     private List<Component> componentsToVisitByRobot1;
+    private FactoryToGraph factoryGraph;
 
     public Application() {
     	
         factory = new Factory();
+        factoryGraph = new FactoryToGraph(factory);
         componentsToVisitByRobot1 = new ArrayList<>();
         
-        room1 = new Room(10, 10, "Packaging Room", 170, 90);
-        room2 = new Room(180, 10, "Sorting Room", 210, 90);
-        room3 = new Room(10, 100, "Stock Room", 220, 90);
-        room4 = new Room(230, 100, "Delivery Room", 160, 90);
+        room1 = new Room(10, 10, "Packaging Room", 90, 170);
+        room2 = new Room(180, 10, "Sorting Room", 90, 210);
+        room3 = new Room(10, 100, "Stock Room", 90, 220);
+        room4 = new Room(230, 100, "Delivery Room", 90, 160);
         
         packagingArea1 = new PackagingArea(30, 40, "Packaging Area", 40, 40);
-        chargingArea1 = new ChargingArea(155, 25, "Charging Point", 20, 30);
+        chargingArea1 = new ChargingArea(155, 25, "Charging Point", 30, 20);
         sortingArea1 = new Area(220, 25, "Sorting Area", 40, 40);
-        booth1 = new Booth(365, 10, "Booth I", 20, 45);
-        booth2 = new Booth(365, 55, "Booth II", 20, 45);
+        booth1 = new Booth(365, 10, "Booth I", 45, 20);
+        booth2 = new Booth(365, 55, "Booth II", 45, 20);
         stockDeliveryArea1 = new Area(340, 100, "Stock Delivery Area", 50, 50);
-        stock1 = new Area(15, 135, "Stock Delivery Area", 80, 50);
-        chargingArea2 = new ChargingArea(195, 105, "Charging Point", 30, 20);
+        stock1 = new Area(15, 135, "Stock Delivery Area", 50, 80);
+        chargingArea2 = new ChargingArea(195, 105, "Charging Point", 20, 30);
         
         door1 = new Door(179, 65, "Door 1", true, true);
         door2 = new Door(20, 99, "Door 2", false, false);
@@ -46,10 +49,9 @@ public class Application {
         
         
         componentsToVisitByRobot1.add(this.packagingArea1);
-    	//componentsToVisitByRobot1.add(this.sortingArea1);
-    	//componentsToVisitByRobot1.add(this.door1);
-        componentsToVisitByRobot1.add(this.chargingArea1);
-        robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1, room1);
+    	componentsToVisitByRobot1.add(this.sortingArea1);
+    	componentsToVisitByRobot1.add(this.door1);
+        robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1, factoryGraph);
         
         factory.addComponent(room1);
     	factory.addComponent(room2); 

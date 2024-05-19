@@ -8,21 +8,17 @@ import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultEdge;
 
-import model.Room;
-
 public class FactoryPathFinder implements IFactoryPathFinder {
 
 	@SuppressWarnings("unused")
 	private static final Logger LOGGER = Logger.getLogger(FactoryPathFinder.class.getName());
 	
-	private FactoryToGraph factoryToGraph;
 	private DijkstraShortestPath<Position, DefaultEdge> shortestPath;
 	
 	
 	@SuppressWarnings("unchecked")
-	public FactoryPathFinder(Room operatingRoom) {
-		this.factoryToGraph = new FactoryToGraph(operatingRoom);
-		this.shortestPath = new DijkstraShortestPath<Position, DefaultEdge>((Graph<Position, DefaultEdge>) this.factoryToGraph.getGraph());
+	public FactoryPathFinder(FactoryToGraph factoryToGraph) {
+		this.shortestPath = new DijkstraShortestPath<Position, DefaultEdge>((Graph<Position, DefaultEdge>) factoryToGraph.getGraph());
 	}
 
 	@Override

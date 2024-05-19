@@ -31,14 +31,14 @@ public class Robot extends MovingComponent implements Serializable {
     		String name, 
     		int timeDelay, 
     		List<Component> componentsToVisit,
-    		Room operatingRoom) {
+    		FactoryToGraph factoryGraph) {
     	
         super(xCoordinate, yCoordinate, name, getDefaultStyle(), getDefaultShape(), timeDelay);
         this.puckOn = false;
         this.currentComponentIndex = 0;
         this.currentPathIndex = 0;
         this.componentsToVisit = componentsToVisit;
-        this.factoryPathFinder = new FactoryPathFinder(operatingRoom);
+        this.factoryPathFinder = new FactoryPathFinder(factoryGraph);
     }
     
     private static Style getDefaultStyle() {
@@ -73,14 +73,10 @@ public class Robot extends MovingComponent implements Serializable {
     }
 
     private void calculatePath() {
-        if (currentComponentIndex < componentsToVisit.size()) {
-            Component nextComponent = componentsToVisit.get(currentComponentIndex);
-            currentPath = factoryPathFinder.findPath(this.getPosition(), nextComponent.getPosition());
-            currentComponentIndex = (currentComponentIndex + 1) % componentsToVisit.size();
-            currentPathIndex = 0;
-        } else {
-            currentPath = null;
-        }
+    	Component nextComponent = componentsToVisit.get(currentComponentIndex);
+        currentPath = factoryPathFinder.findPath(this.getPosition(), nextComponent.getPosition());
+        currentComponentIndex = (currentComponentIndex + 1) % componentsToVisit.size();
+        currentPathIndex = 0;
     }
 
     @Override
@@ -88,20 +84,14 @@ public class Robot extends MovingComponent implements Serializable {
         if (componentsToVisit.isEmpty()) {
             return;
         }
-
         if (currentPath == null || currentPathIndex >= currentPath.size()) {
             calculatePath();
         }
-
         if (currentPath != null && currentPathIndex < currentPath.size()) {
             Position nextPosition = currentPath.get(currentPathIndex);
             this.setxCoordinate(nextPosition.getxCoordinate());
             this.setyCoordinate(nextPosition.getyCoordinate());
             currentPathIndex++;
-        }
-
-        if (currentPath != null && currentPathIndex >= currentPath.size()) {
-            currentComponentIndex = (currentComponentIndex + 1) % componentsToVisit.size();
         }
     }
 

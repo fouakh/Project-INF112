@@ -34,7 +34,7 @@ public class SimulatorController implements CanvasViewerController {
         while (factoryModel.isSimulationStarted()) {
             factoryModel.behave();
             try {
-                Thread.sleep(200);
+                Thread.sleep(70);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }

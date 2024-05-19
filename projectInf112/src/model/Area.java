@@ -24,8 +24,8 @@ public class Area extends StaticComponent implements Serializable {
         return new DefaultStyle();
     }
 
-    private static RectangleShape getDefaultShape(int width, int height) {
-        return new DefaultRectangleShape(width, height);
+    private static RectangleShape getDefaultShape(int height, int width) {
+        return new DefaultRectangleShape(height, width);
     }
 
     @Override
@@ -77,9 +77,9 @@ public class Area extends StaticComponent implements Serializable {
     	private final int width;
         private final int height;
 
-        DefaultRectangleShape(int width, int height) {
+        DefaultRectangleShape(int height, int width) {
+        	this.height = height;
             this.width = width;
-            this.height = height;
         }
 
         @Override
