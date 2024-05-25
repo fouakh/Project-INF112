@@ -1,7 +1,11 @@
 package model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import fr.tp.inf112.projects.canvas.model.*;
+import pathfinder.Position;
 
 public class Room extends StaticComponent implements Serializable {
 
@@ -38,12 +42,32 @@ public class Room extends StaticComponent implements Serializable {
         return getDefaultShape(this.height, this.width);
     }
 
+    @Override
     public int getWidth() {
         return this.width;
     }
 
+    @Override
     public int getHeight() {
         return this.height;
+    }
+    
+    @Override
+    public Set<Position> overlay() {
+    	Robot modelRobot = new Robot();
+    	int xTopLeftCorner = this.getxCoordinate() + (modelRobot.getRadius()/2);
+    	int yTopLeftCorner = this.getyCoordinate() + (modelRobot.getRadius()/2);
+    	int xBottomRightCorner = this.getxCoordinate() + this.getWidth() - (modelRobot.getRadius()/2);
+    	int yBottomRightCorner = this.getyCoordinate() + this.getHeight() - (modelRobot.getRadius()/2);
+    	
+    	Set<Position> allowedVertices = new HashSet<>();
+    	
+    	for(int x = xTopLeftCorner; x <= xBottomRightCorner; x++) {
+    		for(int y = yTopLeftCorner; y <= yBottomRightCorner; y++) {
+    			allowedVertices.add(new Position(x,y));
+    		}
+    	}
+    	return allowedVertices;
     }
     
     private static class DefaultStroke implements Stroke, Serializable {

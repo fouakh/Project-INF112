@@ -6,6 +6,7 @@ package model;
 import pathfinder.Position;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.logging.Logger;
 import fr.tp.inf112.projects.canvas.model.*;
 
@@ -76,4 +77,7 @@ public abstract class Component implements Figure, Serializable  {
     public void behave() {
     	//
     }
+    
+    public abstract Set<Position> overlay();
+    
 }

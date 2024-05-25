@@ -1,9 +1,16 @@
 package model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import fr.tp.inf112.projects.canvas.model.*;
+import pathfinder.Position;
 
 public class Door extends StaticComponent implements Serializable {
+	
+	private static final Logger LOGGER = Logger.getLogger(Door.class.getName());
 
 	private static final long serialVersionUID = 1L;
 	private static final int HEIGHT = 30;
@@ -39,6 +46,36 @@ public class Door extends StaticComponent implements Serializable {
 
     public boolean getDoorOn() {
         return this.doorOpen;
+    }
+    
+    @Override
+    public int getWidth() {
+    	return Door.WIDTH;
+    }
+    
+    @Override
+    public int getHeight() {
+    	return Door.HEIGHT;
+    }
+    
+    @Override
+    public Set<Position> overlay() {
+    	Robot modelRobot = new Robot();
+    	int xTopLeftCorner = this.getxCoordinate() - (modelRobot.getRadius()/2);
+    	int yTopLeftCorner = this.getyCoordinate() - (modelRobot.getRadius()/2);
+    	int xBottomRightCorner = this.getxCoordinate() + this.getWidth() + (modelRobot.getRadius()/2);
+    	int yBottomRightCorner = this.getyCoordinate() + this.getHeight() + (modelRobot.getRadius()/2);
+    	
+    	Set<Position> allowedVertices = new HashSet<>();
+    	
+    	for(int x = xTopLeftCorner; x <= xBottomRightCorner; x++) {
+    		for(int y = yTopLeftCorner; y <= yBottomRightCorner; y++) {
+    			allowedVertices.add(new Position(x,y));
+    		}
+    	}	
+    	//LOGGER.info(getName() + "{ size = " + allowedVertices.size() + " }");
+    	//LOGGER.info(getName() + "{ size calculated = " + (xBottomRightCorner - xTopLeftCorner)*(yBottomRightCorner - yTopLeftCorner) + " }");
+    	return allowedVertices;
     }
 
     private static class DefaultColorOff implements Color, Serializable {

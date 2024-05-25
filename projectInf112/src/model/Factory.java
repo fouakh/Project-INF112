@@ -1,8 +1,14 @@
 package model;
 
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Logger;
+
+import pathfinder.Position;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,6 +18,8 @@ import fr.tp.inf112.projects.canvas.controller.*;
 
 @SuppressWarnings("serial")
 public class Factory implements Canvas, Observable, Serializable {
+	
+	private static final Logger LOGGER = Logger.getLogger(Factory.class.getName());
 
 	private static final int HEIGHT = 200;
 	private static final int WIDTH = 400;
@@ -128,6 +136,18 @@ public class Factory implements Canvas, Observable, Serializable {
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+    
+    public Set<Position> allOverlay() {
+    	
+    	Set<Position> union = new HashSet<>();
+		for(Component component : factoryComponents) {
+			Set<Position> overlaySet = component.overlay();
+	        if (overlaySet != null) {
+	        	union.addAll(overlaySet);
+	        }
+		}
+    	return union;
     }
 
     private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {

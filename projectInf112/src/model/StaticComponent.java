@@ -16,4 +16,8 @@ public abstract class StaticComponent extends Component implements Serializable 
 		super(xCoordinate, yCoordinate, name, style, shape);
 	}
 
+	public abstract int getWidth();
+    
+    public abstract int getHeight();
+	
 }

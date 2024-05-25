@@ -1,17 +1,25 @@
 package pathfinder;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.MaskSubgraph;
 
 import model.Factory;
 
 public class FactoryToGraph {
 	
 	private Graph<Position, DefaultWeightedEdge> graph;
+	private Set<Position> allowedVertices;
+	private Factory factory;
 	
 	public FactoryToGraph(Factory factory) {
 		this.graph = new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+		this.allowedVertices = new HashSet<>();
+		this.factory = factory;
 		createGraph(factory);
 	}
 	
@@ -60,9 +68,23 @@ public class FactoryToGraph {
             }
         }		
 	}
-
-	public Object getGraph() {
-		return this.graph;
+	
+	public Graph<Position, DefaultWeightedEdge> createSubGraph() {
+	    //this.allowedVertices = factory.allOverlay();
+		this.allowedVertices = this.graph.vertexSet();
+	    MaskSubgraph<Position, DefaultWeightedEdge> subgraph = new MaskSubgraph<>(
+	        graph,
+	        this.allowedVertices::contains,
+	        edge -> {
+	            return allowedVertices.contains(graph.getEdgeSource(edge)) && allowedVertices.contains(graph.getEdgeTarget(edge));
+	        }
+	    );
+	    return subgraph;
 	}
 
+	
+	public Graph<Position, DefaultWeightedEdge> getGraph() {
+		return this.graph;
+	}
+	
 }

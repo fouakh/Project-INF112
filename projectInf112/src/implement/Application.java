@@ -20,12 +20,14 @@ public class Application {
     private Robot robot1;
     
     private List<Component> componentsToVisitByRobot1;
+    
     private FactoryToGraph factoryGraph;
 
     public Application() {
     	
         factory = new Factory();
         factoryGraph = new FactoryToGraph(factory);
+        
         componentsToVisitByRobot1 = new ArrayList<>();
         
         room1 = new Room(10, 10, "Packaging Room", 90, 170);
@@ -46,12 +48,7 @@ public class Application {
         door2 = new Door(20, 99, "Door 2", false, false);
         door3 = new Door(229, 150, "Door 3", true, false);
         door4 = new Door(240, 99, "Door 4", false, true);
-        
-        
-        componentsToVisitByRobot1.add(this.packagingArea1);
-    	componentsToVisitByRobot1.add(this.sortingArea1);
-    	componentsToVisitByRobot1.add(this.door1);
-        robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1, factoryGraph);
+      
         
         factory.addComponent(room1);
     	factory.addComponent(room2); 
@@ -71,6 +68,11 @@ public class Application {
     	factory.addComponent(door2);
     	factory.addComponent(door3);
     	factory.addComponent(door4);
+    	
+    	componentsToVisitByRobot1.add(this.packagingArea1);
+    	componentsToVisitByRobot1.add(this.sortingArea1);
+    	componentsToVisitByRobot1.add(this.door1);
+    	robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1, factoryGraph);
     	
     	factory.addComponent(robot1);
     	

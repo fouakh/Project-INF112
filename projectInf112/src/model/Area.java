@@ -1,7 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Set;
+
 import fr.tp.inf112.projects.canvas.model.*;
+import pathfinder.Position;
 
 public class Area extends StaticComponent implements Serializable {
 
@@ -92,4 +95,19 @@ public class Area extends StaticComponent implements Serializable {
             return this.height;
         }
     }
+
+	@Override
+	public int getWidth() {
+		return this.width;
+	}
+
+	@Override
+	public int getHeight() {
+		return this.height;
+	}
+
+	@Override
+	public Set<Position> overlay() {
+		return null;
+	}
 }

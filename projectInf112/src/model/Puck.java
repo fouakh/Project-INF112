@@ -1,7 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Set;
+
 import fr.tp.inf112.projects.canvas.model.*;
+import pathfinder.Position;
 
 public class Puck extends MovingComponent implements Serializable {
 
@@ -107,4 +110,9 @@ public class Puck extends MovingComponent implements Serializable {
             return ROBOT_RADIUS;
         }
     }
+
+	@Override
+	public Set<Position> overlay() {
+		return null;
+	}
 }

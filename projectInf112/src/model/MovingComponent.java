@@ -24,7 +24,6 @@ public abstract class MovingComponent extends Component implements Serializable 
         this.timeDelay = timeDelay;
     }
 
-    // Getters
     public float getSpeedX() {
         return speedX;
     }
@@ -37,7 +36,6 @@ public abstract class MovingComponent extends Component implements Serializable 
         return timeDelay;
     }
 
-    // Setters
     public void setSpeedX(float speedX) {
         this.speedX = speedX;
         setFactoryNotify();

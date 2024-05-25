@@ -6,25 +6,30 @@ import java.util.logging.Logger;
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
-import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultWeightedEdge;
 
 public class FactoryPathFinder implements IFactoryPathFinder {
 
-	@SuppressWarnings("unused")
+	
 	private static final Logger LOGGER = Logger.getLogger(FactoryPathFinder.class.getName());
 	
-	private DijkstraShortestPath<Position, DefaultEdge> shortestPath;
+	
+	private FactoryToGraph factoryToGraph;
+	private DijkstraShortestPath<Position, DefaultWeightedEdge> shortestPath;
 	
 	
-	@SuppressWarnings("unchecked")
 	public FactoryPathFinder(FactoryToGraph factoryToGraph) {
-		this.shortestPath = new DijkstraShortestPath<Position, DefaultEdge>((Graph<Position, DefaultEdge>) factoryToGraph.getGraph());
+		this.factoryToGraph = factoryToGraph;
 	}
 
 	@Override
     public List<Position> findPath(Position sourcePosition, Position targetPosition) {
 
-        GraphPath<Position, DefaultEdge> path =  this.shortestPath.getPath(sourcePosition, targetPosition);
+		Graph<Position, DefaultWeightedEdge> subGraph = factoryToGraph.createSubGraph();
+		LOGGER.info("vertex size = " + subGraph.vertexSet().size());
+		LOGGER.info("edge size = " + subGraph.edgeSet().size());
+		this.shortestPath = new DijkstraShortestPath<Position, DefaultWeightedEdge>((Graph<Position, DefaultWeightedEdge>) subGraph);
+        GraphPath<Position, DefaultWeightedEdge> path =  this.shortestPath.getPath(sourcePosition, targetPosition);
         
         if (path == null) {
             return null;

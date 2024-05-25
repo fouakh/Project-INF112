@@ -4,6 +4,8 @@ import pathfinder.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
 import fr.tp.inf112.projects.canvas.model.*;
 
 public class Robot extends MovingComponent implements Serializable {
@@ -26,6 +28,10 @@ public class Robot extends MovingComponent implements Serializable {
 
     private static final Stroke DEFAULT_STROKE = new DefaultStroke();    
 
+    public Robot() {
+    	super(0, 0, null, getDefaultStyle(), getDefaultShape(), 0);
+    }
+    
     public Robot(int xCoordinate, 
     		int yCoordinate, 
     		String name, 
@@ -160,4 +166,9 @@ public class Robot extends MovingComponent implements Serializable {
             return ROBOT_RADIUS;
         }
     }
+
+	@Override
+	public Set<Position> overlay() {
+		return null;
+	}
 }
