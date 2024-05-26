@@ -3,14 +3,11 @@ package model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import fr.tp.inf112.projects.canvas.model.*;
 import pathfinder.Position;
 
 public class Door extends StaticComponent implements Serializable {
-	
-	private static final Logger LOGGER = Logger.getLogger(Door.class.getName());
 
 	private static final long serialVersionUID = 1L;
 	private static final int HEIGHT = 30;
@@ -61,10 +58,23 @@ public class Door extends StaticComponent implements Serializable {
     @Override
     public Set<Position> overlay() {
     	Robot modelRobot = new Robot();
-    	int xTopLeftCorner = this.getxCoordinate() - (modelRobot.getRadius()/2);
-    	int yTopLeftCorner = this.getyCoordinate() - (modelRobot.getRadius()/2);
-    	int xBottomRightCorner = this.getxCoordinate() + this.getWidth() + (modelRobot.getRadius()/2);
-    	int yBottomRightCorner = this.getyCoordinate() + this.getHeight() + (modelRobot.getRadius()/2);
+    	int xTopLeftCorner;
+    	int yTopLeftCorner;
+    	int xBottomRightCorner;
+    	int yBottomRightCorner;
+    	
+    	if(vertical) {
+    		xTopLeftCorner = this.getxCoordinate() - modelRobot.getRadius();
+            yTopLeftCorner = this.getyCoordinate();
+            xBottomRightCorner = this.getxCoordinate() + this.getWidth();
+            yBottomRightCorner = this.getyCoordinate() + this.getHeight() - modelRobot.getRadius();
+    	}
+    	else {
+    		xTopLeftCorner = this.getxCoordinate();
+            yTopLeftCorner = this.getyCoordinate() - modelRobot.getRadius();
+            xBottomRightCorner = this.getxCoordinate() + this.getHeight() - modelRobot.getRadius();
+            yBottomRightCorner = this.getyCoordinate() + this.getWidth();
+    	}
     	
     	Set<Position> allowedVertices = new HashSet<>();
     	
@@ -73,8 +83,6 @@ public class Door extends StaticComponent implements Serializable {
     			allowedVertices.add(new Position(x,y));
     		}
     	}	
-    	//LOGGER.info(getName() + "{ size = " + allowedVertices.size() + " }");
-    	//LOGGER.info(getName() + "{ size calculated = " + (xBottomRightCorner - xTopLeftCorner)*(yBottomRightCorner - yTopLeftCorner) + " }");
     	return allowedVertices;
     }
 

@@ -18,8 +18,8 @@ public class Room extends StaticComponent implements Serializable {
         super();
     }
 
-    public Room(int centerX, int centerY, String name, int height, int width) {
-        super(centerX, centerY, name, getDefaultStyle(), getDefaultShape(height, width));
+    public Room(int xCoordinate, int yCoordinate, String name, int height, int width) {
+        super(xCoordinate, yCoordinate, name, getDefaultStyle(), getDefaultShape(height, width));
         this.height = height;
         this.width = width;
     }
@@ -55,10 +55,10 @@ public class Room extends StaticComponent implements Serializable {
     @Override
     public Set<Position> overlay() {
     	Robot modelRobot = new Robot();
-    	int xTopLeftCorner = this.getxCoordinate() + (modelRobot.getRadius()/2);
-    	int yTopLeftCorner = this.getyCoordinate() + (modelRobot.getRadius()/2);
-    	int xBottomRightCorner = this.getxCoordinate() + this.getWidth() - (modelRobot.getRadius()/2);
-    	int yBottomRightCorner = this.getyCoordinate() + this.getHeight() - (modelRobot.getRadius()/2);
+    	int xTopLeftCorner = this.getxCoordinate();
+    	int yTopLeftCorner = this.getyCoordinate();
+    	int xBottomRightCorner = this.getxCoordinate() + this.getWidth() - modelRobot.getRadius();
+    	int yBottomRightCorner = this.getyCoordinate() + this.getHeight() - modelRobot.getRadius();
     	
     	Set<Position> allowedVertices = new HashSet<>();
     	

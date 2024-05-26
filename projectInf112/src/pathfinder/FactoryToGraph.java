@@ -6,7 +6,6 @@ import java.util.Set;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.MaskSubgraph;
 
 import model.Factory;
 
@@ -70,17 +69,25 @@ public class FactoryToGraph {
 	}
 	
 	public Graph<Position, DefaultWeightedEdge> createSubGraph() {
-	    //this.allowedVertices = factory.allOverlay();
-		this.allowedVertices = this.graph.vertexSet();
-	    MaskSubgraph<Position, DefaultWeightedEdge> subgraph = new MaskSubgraph<>(
-	        graph,
-	        this.allowedVertices::contains,
-	        edge -> {
-	            return allowedVertices.contains(graph.getEdgeSource(edge)) && allowedVertices.contains(graph.getEdgeTarget(edge));
-	        }
-	    );
-	    return subgraph;
-	}
+        
+        this.allowedVertices = new HashSet<>(factory.allOverlay());
+        Graph<Position, DefaultWeightedEdge> copiedGraph = new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+
+        for (Position vertex : graph.vertexSet()) {
+            if (allowedVertices.contains(vertex)) {
+                copiedGraph.addVertex(vertex);
+            }
+        }
+        for (DefaultWeightedEdge edge : graph.edgeSet()) {
+            Position source = graph.getEdgeSource(edge);
+            Position target = graph.getEdgeTarget(edge);
+            if (allowedVertices.contains(source) && allowedVertices.contains(target)) {
+                copiedGraph.addEdge(source, target, edge);
+                copiedGraph.setEdgeWeight(edge, graph.getEdgeWeight(edge));
+            }
+        }
+        return copiedGraph;
+    }
 
 	
 	public Graph<Position, DefaultWeightedEdge> getGraph() {

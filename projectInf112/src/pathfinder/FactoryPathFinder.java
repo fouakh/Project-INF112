@@ -11,6 +11,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 public class FactoryPathFinder implements IFactoryPathFinder {
 
 	
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = Logger.getLogger(FactoryPathFinder.class.getName());
 	
 	
@@ -26,8 +27,6 @@ public class FactoryPathFinder implements IFactoryPathFinder {
     public List<Position> findPath(Position sourcePosition, Position targetPosition) {
 
 		Graph<Position, DefaultWeightedEdge> subGraph = factoryToGraph.createSubGraph();
-		LOGGER.info("vertex size = " + subGraph.vertexSet().size());
-		LOGGER.info("edge size = " + subGraph.edgeSet().size());
 		this.shortestPath = new DijkstraShortestPath<Position, DefaultWeightedEdge>((Graph<Position, DefaultWeightedEdge>) subGraph);
         GraphPath<Position, DefaultWeightedEdge> path =  this.shortestPath.getPath(sourcePosition, targetPosition);
         

@@ -19,6 +19,7 @@ import fr.tp.inf112.projects.canvas.controller.*;
 @SuppressWarnings("serial")
 public class Factory implements Canvas, Observable, Serializable {
 	
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = Logger.getLogger(Factory.class.getName());
 
 	private static final int HEIGHT = 200;
@@ -138,8 +139,7 @@ public class Factory implements Canvas, Observable, Serializable {
         this.id = id;
     }
     
-    public Set<Position> allOverlay() {
-    	
+    public Set<Position> allOverlay() {   	
     	Set<Position> union = new HashSet<>();
 		for(Component component : factoryComponents) {
 			Set<Position> overlaySet = component.overlay();

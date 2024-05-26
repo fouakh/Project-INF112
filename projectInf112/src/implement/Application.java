@@ -45,8 +45,8 @@ public class Application {
         chargingArea2 = new ChargingArea(195, 105, "Charging Point", 20, 30);
         
         door1 = new Door(179, 65, "Door 1", true, true);
-        door2 = new Door(20, 99, "Door 2", false, false);
-        door3 = new Door(229, 150, "Door 3", true, false);
+        door2 = new Door(20, 99, "Door 2", false, true);
+        door3 = new Door(229, 150, "Door 3", true, true);
         door4 = new Door(240, 99, "Door 4", false, true);
       
         
@@ -69,10 +69,13 @@ public class Application {
     	factory.addComponent(door3);
     	factory.addComponent(door4);
     	
-    	componentsToVisitByRobot1.add(this.packagingArea1);
+    	componentsToVisitByRobot1.add(this.stock1);
+    	componentsToVisitByRobot1.add(this.chargingArea2);
     	componentsToVisitByRobot1.add(this.sortingArea1);
-    	componentsToVisitByRobot1.add(this.door1);
-    	robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1, factoryGraph);
+    	componentsToVisitByRobot1.add(this.chargingArea1);
+    	componentsToVisitByRobot1.add(this.stockDeliveryArea1);
+    	//robot1 = new Robot(20, 20, "Robot 1", 1, componentsToVisitByRobot1, factoryGraph);
+    	robot1 = new Robot(20, 120, "Robot 1", 1, componentsToVisitByRobot1, factoryGraph);
     	
     	factory.addComponent(robot1);
     	
