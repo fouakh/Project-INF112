@@ -9,12 +9,25 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 
 import model.Factory;
 
+/**
+ * La classe FactoryToGraph convertit une instance de la classe Factory en un graphe dirigé pondéré.
+ */
 public class FactoryToGraph {
-	
+	/**
+     * Graphe dirigé pondéré représentant l'usine.
+     */
 	private Graph<Position, DefaultWeightedEdge> graph;
+	/**
+     * Ensemble des positions autorisées dans le graphe.
+     */
 	private Set<Position> allowedVertices;
 	private Factory factory;
 	
+	/**
+     * Constructeur de la classe FactoryToGraph.
+     *
+     * @param factory Instance de la classe Factory à convertir en graphe.
+     */
 	public FactoryToGraph(Factory factory) {
 		this.graph = new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
 		this.allowedVertices = new HashSet<>();
@@ -22,6 +35,11 @@ public class FactoryToGraph {
 		createGraph(factory);
 	}
 	
+	/**
+     * Crée le graphe représentant l'usine.
+     *
+     * @param factory Instance de la classe Factory à convertir en graphe.
+     */
 	public void createGraph(Factory factory) {
 		int xBottomRight = factory.getWidth();
 		int yBottomRight = factory.getHeight();
@@ -68,6 +86,11 @@ public class FactoryToGraph {
         }		
 	}
 	
+	/**
+     * Crée un sous-graphe à partir des positions autorisées dans l'usine.
+     *
+     * @return Sous-graphe à partir des positions autorisées dans l'usine.
+     */
 	public Graph<Position, DefaultWeightedEdge> createSubGraph() {
         
         this.allowedVertices = new HashSet<>(factory.allOverlay());

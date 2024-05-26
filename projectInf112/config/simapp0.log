@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2024-05-26T18:36:19.194390600Z</date>
-  <millis>1716748579194</millis>
-  <nanos>390600</nanos>
+  <date>2024-05-26T19:35:22.272783700Z</date>
+  <millis>1716752122272</millis>
+  <nanos>783700</nanos>
   <sequence>0</sequence>
   <logger>test.SimulatorApplication</logger>
   <level>INFO</level>
