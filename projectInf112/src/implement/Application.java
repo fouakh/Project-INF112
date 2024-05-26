@@ -6,6 +6,10 @@ import pathfinder.FactoryToGraph;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * La classe Application crée et configure les différents éléments de l'usine, tels que les pièces, les zones de stockage, les zones de chargement, les portes, etc.
+ * Elle définit également le parcours que le robot doit suivre pour visiter les différents éléments de l'usine.
+ */
 public class Application {
 
 	private Factory factory;
@@ -18,9 +22,13 @@ public class Application {
     private ChargingArea chargingArea2;
     private Door door1, door2, door3, door4;
     private Robot robot1;
-    
+    /**
+     * La liste des éléments à visiter par le robot 1.
+     */
     private List<Component> componentsToVisitByRobot1;
-    
+    /**
+     * Le graphe de l'usine qui permet de trouver le chemin le plus court entre les éléments.
+     */
     private FactoryToGraph factoryGraph;
 
     public Application() {
@@ -29,7 +37,7 @@ public class Application {
         factoryGraph = new FactoryToGraph(factory);
         
         componentsToVisitByRobot1 = new ArrayList<>();
-        
+        // Crée les pièces,zones,portes de l'usine
         room1 = new Room(10, 10, "Packaging Room", 90, 170);
         room2 = new Room(180, 10, "Sorting Room", 90, 210);
         room3 = new Room(10, 100, "Stock Room", 90, 220);
@@ -49,7 +57,7 @@ public class Application {
         door3 = new Door(229, 150, "Door 3", true, true);
         door4 = new Door(240, 99, "Door 4", false, true);
       
-        
+        // Ajoute les pièces et les zones à l'usine
         factory.addComponent(room1);
     	factory.addComponent(room2); 
     	factory.addComponent(room3); 
@@ -68,7 +76,7 @@ public class Application {
     	factory.addComponent(door2);
     	factory.addComponent(door3);
     	factory.addComponent(door4);
-    	
+    	// Définit les zones à visiter
     	componentsToVisitByRobot1.add(this.stock1);
     	componentsToVisitByRobot1.add(this.chargingArea2);
     	componentsToVisitByRobot1.add(this.sortingArea1);

@@ -10,8 +10,16 @@ import java.util.Set;
 import java.util.logging.Logger;
 import fr.tp.inf112.projects.canvas.model.*;
 
+/**
+ * La classe Component représente un élément graphique abstrait sur le canvas.
+ * Un élément graphique a une position, un nom, un style et une forme spécifiques,
+ * ainsi qu'une référence à une factory pour les notifications.
+ */
 public abstract class Component implements Figure, Serializable  {
-
+	
+	/**
+     * Logger pour les messages de debug et d'erreur.
+     */
 	public static final Logger LOGGER = Logger.getLogger(Component.class.getName());
 	
 	private static final long serialVersionUID = 1L;
@@ -74,6 +82,9 @@ public abstract class Component implements Figure, Serializable  {
     	factoryModel.notifyObservers();
     }
     
+    /**
+     * Méthode abstraite qui définit le comportement de l'élément graphique.
+     */
     public void behave() {
     	//
     }

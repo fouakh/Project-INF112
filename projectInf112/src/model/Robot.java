@@ -8,6 +8,10 @@ import java.util.Set;
 
 import fr.tp.inf112.projects.canvas.model.*;
 
+/**
+ * La classe Robot représente un robot sur le canvas.
+ * Elle hérite de la classe MovingComponent et implémente l'interface Serializable.
+ */
 public class Robot extends MovingComponent implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -32,6 +36,16 @@ public class Robot extends MovingComponent implements Serializable {
     	super(0, 0, null, getDefaultStyle(), getDefaultShape(), 0);
     }
     
+    /**
+     * Constructeur de la classe Robot qui initialise les coordonnées, le nom, le style, la forme, le délai de temps et la liste de composants à visiter du robot.
+     *
+     * @param xCoordinate Coordonnée x du robot.
+     * @param yCoordinate Coordonnée y du robot.
+     * @param name Nom du robot.
+     * @param timeDelay Délai de temps du robot.
+     * @param componentsToVisit Liste des composants à visiter.
+     * @param factoryGraph Graphe de l'usine.
+     */
     public Robot(int xCoordinate, 
     		int yCoordinate, 
     		String name, 
@@ -58,7 +72,11 @@ public class Robot extends MovingComponent implements Serializable {
     public void setComponentsToVisit(List<Component> componentsToVisit) {
         this.componentsToVisit = componentsToVisit;
     }
-    
+    /**
+     * Définit l'état du palet sur le robot.
+     *
+     * @param puckOn Indique si un palet est sur le robot.
+     */
     public void setPuckOn(boolean puckOn) {
         this.puckOn = puckOn;
         setFactoryNotify();
@@ -77,7 +95,9 @@ public class Robot extends MovingComponent implements Serializable {
     public OvalShape getShape() {
         return getDefaultShape();
     }
-
+    /**
+     * Calcule le chemin vers le prochain composant à visiter.
+     */
     private void calculatePath() {
     	Component nextComponent = componentsToVisit.get(currentComponentIndex);
         currentPath = factoryPathFinder.findPath(this.getPosition(), nextComponent.getPosition());
@@ -85,6 +105,9 @@ public class Robot extends MovingComponent implements Serializable {
         currentPathIndex = 0;
     }
 
+    /**
+     * Comportement du robot.
+     */
     @Override
     public void behave() {
         if (componentsToVisit.isEmpty()) {

@@ -6,6 +6,11 @@ import java.util.Set;
 import fr.tp.inf112.projects.canvas.model.*;
 import pathfinder.Position;
 
+/**
+ * La classe Puck représente un palet sur le canvas.
+ * Elle hérite de la classe MovingComponent et implémente l'interface Serializable.
+ * Un palet a une vitesse, un délai de temps et un état indiquant s'il est sur un robot ou non.
+ */
 public class Puck extends MovingComponent implements Serializable {
 
 	private static final long serialVersionUID = 1L;

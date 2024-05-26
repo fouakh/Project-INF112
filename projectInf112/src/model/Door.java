@@ -7,6 +7,14 @@ import java.util.Set;
 import fr.tp.inf112.projects.canvas.model.*;
 import pathfinder.Position;
 
+
+/**
+ * La classe Door représente une porte sur le canvas.
+ * Elle hérite de la classe StaticComponent et implémente l'interface Serializable.
+ * Une porte a une position, un nom, une orientation (verticale ou horizontale),
+ * une couleur de fond, un style de bordure et une forme spécifiques.
+ * Elle peut être ouverte ou fermée.
+ */
 public class Door extends StaticComponent implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -14,7 +22,10 @@ public class Door extends StaticComponent implements Serializable {
     private static final int WIDTH = 2;
     private boolean vertical;
     private boolean doorOpen;
-
+    
+    /**
+     * Couleur de fond par défaut de la porte.
+     */
     private static final Color DEFAULT_COLOR_OFF = new DefaultColorOff();
     private static final Color DEFAULT_COLOR_ON = new DefaultColorOn();
 
@@ -23,24 +34,50 @@ public class Door extends StaticComponent implements Serializable {
         this.vertical = vertical;
         this.doorOpen = doorOpen;
     }
-
+    /**
+     * Renvoie le style par défaut de la porte en fonction de son état.
+     *
+     * @param doorOpen Indique si la porte est ouverte ou fermée.
+     * @return Le style par défaut de la porte.
+     */
     private static Style getDefaultStyle(boolean doorOpen) {
         return new DefaultStyle(doorOpen);
     }
 
+    /**
+     * Renvoie la forme par défaut de la porte en fonction de son orientation.
+     *
+     * @param vertical Indique si la porte est verticale ou horizontale.
+     * @return La forme par défaut de la porte.
+     */
     private static RectangleShape getDefaultShape(boolean vertical) {
         return new DefaultRectangleShape(vertical);
     }
 
+    /**
+     * Renvoie la forme de la porte.
+     *
+     * @return La forme de la porte.
+     */
     @Override
     public RectangleShape getShape() {
         return getDefaultShape(this.vertical);
     }
 
+    /**
+     * Définit l'état de la porte.
+     *
+     * @param doorOpen Indique si la porte est ouverte ou fermée.
+     */
     public void setDoorOn(boolean doorOpen) {
         this.doorOpen = doorOpen;
     }
 
+    /**
+     * Renvoie l'état de la porte.
+     *
+     * @return L'état de la porte.
+     */
     public boolean getDoorOn() {
         return this.doorOpen;
     }
