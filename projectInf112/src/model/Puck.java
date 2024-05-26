@@ -49,7 +49,7 @@ public class Puck extends MovingComponent implements Serializable {
     public OvalShape getShape() {
         return getDefaultShape();
     }
-
+    //sous classe privée de robot pour définir la couleur en oir RGB (0.0.0)
     private static class DefaultColor implements Color, Serializable {
         
 		private static final long serialVersionUID = 1L;

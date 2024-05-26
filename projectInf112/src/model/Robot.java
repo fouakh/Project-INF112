@@ -123,7 +123,7 @@ public class Robot extends MovingComponent implements Serializable {
             currentPathIndex++;
         }
     }
-
+    //Sous classe de Robot pour définir la couleur du robot par défaut sous code RGB (0,255,20) 
     private static class DefaultColor implements Color, Serializable {
     	
     	private static final long serialVersionUID = 1L;
@@ -161,7 +161,7 @@ public class Robot extends MovingComponent implements Serializable {
             return null;
         }
     }
-
+    //Sous classe de Robot pour définir la le style du robot par défaut
     private static class DefaultStyle implements Style, Serializable {
     	
     	private static final long serialVersionUID = 1L;
@@ -175,7 +175,7 @@ public class Robot extends MovingComponent implements Serializable {
             return DEFAULT_STROKE;
         }
     }
-
+    // sous classe privé de Robot pour définir la forme ovale comme forme par défaut du robot
     private static class DefaultOvalShape implements OvalShape, Serializable {
     	
     	private static final long serialVersionUID = 1L;

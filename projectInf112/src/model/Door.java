@@ -122,7 +122,8 @@ public class Door extends StaticComponent implements Serializable {
     	}	
     	return allowedVertices;
     }
-
+    // sous classe privée pour déinir la couleur par défaut de la porte sous code RGB à  (100,100,100)
+    //porte fermee
     private static class DefaultColorOff implements Color, Serializable {
 
     	private static final long serialVersionUID = 1L;
@@ -141,7 +142,7 @@ public class Door extends StaticComponent implements Serializable {
             return 200;
         }
     }
-
+    //porte ouverte
     private static class DefaultColorOn implements Color, Serializable {
 
     	private static final long serialVersionUID = 1L;
@@ -205,7 +206,7 @@ public class Door extends StaticComponent implements Serializable {
             return null;
         }
     }
-
+    //la forme de la porte par défaut est un rectangle 
     private static class DefaultRectangleShape implements RectangleShape, Serializable {
       
     	private static final long serialVersionUID = 1L;
